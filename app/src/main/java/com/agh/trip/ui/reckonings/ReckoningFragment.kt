@@ -1,4 +1,4 @@
-package com.agh.trip.ui.notifications
+package com.agh.trip.ui.reckonings
 
 import android.os.Build
 import android.os.Bundle
@@ -15,9 +15,9 @@ import com.agh.trip.backend.data.PaymentsDAO
 import com.agh.trip.backend.data.dto.PaymentData
 import java.util.stream.Collectors
 
-class NotificationsFragment : Fragment() {
+class ReckoningFragment : Fragment() {
 
-    private lateinit var notificationsViewModel: NotificationsViewModel
+    private lateinit var reckoningViewModel: ReckoningViewModel
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreateView(
@@ -25,12 +25,13 @@ class NotificationsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        notificationsViewModel =
-            ViewModelProviders.of(this).get(NotificationsViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_notifications, container, false)
+        reckoningViewModel =
+            ViewModelProviders.of(this).get(ReckoningViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_reckonings, container, false)
 
         val listView = root.findViewById<ListView>(R.id.reckoning_list)
 
+        // Here is logic to calculate reckoning of payments, but its fucked up so feel free to delete this
         val reckonings = ArrayList<String >()
         val payments = PaymentsDAO.getAllItems()
         val sum = payments.stream().map(PaymentData::amount).collect(Collectors.toList()).sum()

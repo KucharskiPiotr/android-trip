@@ -1,6 +1,5 @@
-package com.agh.trip.ui.dashboard
+package com.agh.trip.ui.newPayment
 
-import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,9 +14,9 @@ import androidx.navigation.fragment.findNavController
 import com.agh.trip.backend.data.dto.PaymentData
 import com.agh.trip.R
 
-class DashboardFragment : Fragment() {
+class NewPaymentFragment : Fragment() {
 
-    private lateinit var dashboardViewModel: DashboardViewModel
+    private lateinit var newPaymentViewModel: NewPaymentViewModel
 
     private var amountOfFieldsEdited = 0
 
@@ -26,14 +25,14 @@ class DashboardFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        dashboardViewModel =
-            ViewModelProviders.of(this).get(DashboardViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
+        newPaymentViewModel =
+            ViewModelProviders.of(this).get(NewPaymentViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_new_payment, container, false)
         val addPaymentButton: Button = root.findViewById(R.id.add_payment_button)
         addPaymentButton.setOnClickListener {
             if (allFieldsAreFilled(root)) {
                 createNewPaymentInModel(root)
-                dashboardViewModel.persistNewPaymentData()
+                newPaymentViewModel.persistNewPaymentData()
                 hideKeyboard()
                 findNavController().navigate(R.id.navigation_home)
             }
@@ -56,7 +55,7 @@ class DashboardFragment : Fragment() {
             root.findViewById<EditText>(R.id.description_edit).text.toString()
         val amountPayed =
             root.findViewById<EditText>(R.id.amount_edit).text.toString().toDouble()
-        dashboardViewModel.newPaymentData =
+        newPaymentViewModel.newPaymentData =
             PaymentData(name, paymentDescription, amountPayed)
     }
 

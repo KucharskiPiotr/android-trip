@@ -9,8 +9,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.agh.trip.ui.dashboard.DashboardFragment
-import com.agh.trip.ui.home.HomeFragment
 
 class MainActivity : AppCompatActivity() {
 

@@ -13,9 +13,9 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.agh.trip.ui.dashboard.DashboardFragment"
+        android:name="com.agh.trip.ui.newPayment.NewPaymentFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" >
+        tools:layout="@layout/fragment_new_payment" >
         <action
             android:id="@+id/action_navigation_dashboard_to_navigation_home"
             app:destination="@id/navigation_home" />
@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.agh.trip.ui.notifications.NotificationsFragment"
+        android:name="com.agh.trip.ui.reckonings.ReckoningFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_reckonings" />
 </navigation>
