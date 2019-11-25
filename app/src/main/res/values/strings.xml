@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Trip</string>
+    <string name="title_home">Payments</string>
+    <string name="title_dashboard">New Payment</string>
+    <string name="title_notifications">Reckoning</string>
+    <string name="prayer_label">Name of payer</string>
+    <string name="description_label">Description of payment</string>
+    <string name="amount_label">Amount payed</string>
+    <string name="default_currency">PLN</string>
+    <string name="add_payment">Add payment</string>
+    <string name="total_label">Total amount spent:</string>
+</resources>
