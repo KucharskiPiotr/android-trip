@@ -1,5 +1,6 @@
 package com.agh.trip.ui.home
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,7 +11,7 @@ class HomeViewModel : ViewModel() {
 
     lateinit var paymentsList: List<PaymentData>
 
-    fun getPaymentsFromDb() {
-        paymentsList = PaymentsDAO.getAllItems()
+    fun getPaymentsFromDb(context: Context) {
+        paymentsList = PaymentsDAO.getAllItemsList(context)
     }
 }

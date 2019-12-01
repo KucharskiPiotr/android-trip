@@ -32,7 +32,7 @@ class NewPaymentFragment : Fragment() {
         addPaymentButton.setOnClickListener {
             if (allFieldsAreFilled(root)) {
                 createNewPaymentInModel(root)
-                newPaymentViewModel.persistNewPaymentData()
+                context?.let { newPaymentViewModel.persistNewPaymentData(it) }
                 hideKeyboard()
                 findNavController().navigate(R.id.navigation_home)
             }
@@ -56,7 +56,7 @@ class NewPaymentFragment : Fragment() {
         val amountPayed =
             root.findViewById<EditText>(R.id.amount_edit).text.toString().toDouble()
         newPaymentViewModel.newPaymentData =
-            PaymentData(name, paymentDescription, amountPayed)
+            PaymentData(0, name, paymentDescription, amountPayed)
     }
 
     private fun hideKeyboard() {

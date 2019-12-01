@@ -33,7 +33,7 @@ class ReckoningFragment : Fragment() {
 
         // Here is logic to calculate reckoning of payments, but its fucked up so feel free to delete this
         val reckonings = ArrayList<String >()
-        val payments = PaymentsDAO.getAllItems()
+        val payments = PaymentsDAO.getAllItemsList(context!!)
         val sum = payments.stream().map(PaymentData::amount).collect(Collectors.toList()).sum()
         val participants = payments.stream().map(PaymentData::name).distinct().collect(Collectors.toList())
         val amountPerParticipant = sum / participants.size
@@ -61,7 +61,7 @@ class ReckoningFragment : Fragment() {
             ArrayAdapter(
                 it,
                 android.R.layout.simple_list_item_1,
-                PaymentsDAO.getAllItems()
+                PaymentsDAO.getAllItemsList(context!!)
             )
         }
 
