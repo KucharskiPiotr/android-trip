@@ -1,6 +1,7 @@
 package com.agh.trip.ui.newPayment
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -35,6 +36,11 @@ class NewPaymentFragment : Fragment() {
                 context?.let { newPaymentViewModel.persistNewPaymentData(it) }
                 hideKeyboard()
                 findNavController().navigate(R.id.navigation_home)
+                Intent().also {
+                    it.action = "com.agh.trip.ITEM_ADDED"
+                    it.putExtra("name", newPaymentViewModel.newPaymentData.name)
+                    activity?.sendBroadcast(it)
+                }
             }
         }
         return root

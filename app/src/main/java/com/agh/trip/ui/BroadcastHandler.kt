@@ -7,6 +7,7 @@ import android.widget.Toast
 
 class BroadcastHandler : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
-        Toast.makeText(context, "Received!", Toast.LENGTH_LONG).show()
+        val name = intent?.getStringExtra("name")
+        Toast.makeText(context, "Payment of $name added.", Toast.LENGTH_SHORT).show()
     }
 }

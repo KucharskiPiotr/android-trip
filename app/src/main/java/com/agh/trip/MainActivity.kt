@@ -1,6 +1,7 @@
 package com.agh.trip
 
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
@@ -10,6 +11,8 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.agh.trip.ui.BroadcastHandler
+import java.util.concurrent.BrokenBarrierException
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+        registerReceiver(BroadcastHandler(), IntentFilter("com.agh.trip.ITEM_ADDED"))
     }
 
     fun clearEditText(view: View) {
