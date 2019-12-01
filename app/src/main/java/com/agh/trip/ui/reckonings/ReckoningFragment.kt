@@ -2,6 +2,7 @@ package com.agh.trip.ui.reckonings
 
 import android.os.Build
 import android.os.Bundle
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,8 @@ class ReckoningFragment : Fragment() {
 
     private lateinit var reckoningViewModel: ReckoningViewModel
 
+    fun Double.format(digits: Int) = "%.${digits}f".format(this)
+
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,38 +34,17 @@ class ReckoningFragment : Fragment() {
 
         val listView = root.findViewById<ListView>(R.id.reckoning_list)
 
-        // Here is logic to calculate reckoning of payments, but its fucked up so feel free to delete this
-        val reckonings = ArrayList<String >()
-        val payments = PaymentsDAO.getAllItemsList(context!!)
-        val sum = payments.stream().map(PaymentData::amount).collect(Collectors.toList()).sum()
-        val participants = payments.stream().map(PaymentData::name).distinct().collect(Collectors.toList())
-        val amountPerParticipant = sum / participants.size
-        val moneySpentByParticipants = HashMap<String, Double>()
-        val howMuchWhoShouldPay = HashMap<String, Double>()
-
-        for (p in participants) {
-            moneySpentByParticipants[p] = 0.0
-        }
-
-        for (p in payments) {
-            moneySpentByParticipants[p.name]?.let { moneySpentByParticipants[p.name] = it + p.amount }
-                ?: run { moneySpentByParticipants[p.name] = p.amount }
-        }
-
-        for (participantMoney in moneySpentByParticipants) {
-            howMuchWhoShouldPay[participantMoney.key] = amountPerParticipant - participantMoney.value
-        }
-
-        for (participantReckoning in howMuchWhoShouldPay) {
-//            if (participantReckoning.value > 0)
-        }
-
-        val adapter = context?.let {
-            ArrayAdapter(
-                it,
-                android.R.layout.simple_list_item_1,
-                PaymentsDAO.getAllItemsList(context!!)
-            )
+        context?.let { context ->
+            val reckonings = reckoningViewModel.generateReckoning(context)
+            val reckonignTexts = reckonings.map {
+                Html.fromHtml(
+                    "<b>${it.key.first}</b> should give <b>${it.key.second}</b>: ${it.value.format(
+                        2
+                    )} ${getString(R.string.default_currency)}", Html.FROM_HTML_MODE_COMPACT
+                )
+            }
+            val adapter = ArrayAdapter(context, android.R.layout.simple_list_item_1, reckonignTexts)
+            listView.adapter = adapter
         }
 
         return root
